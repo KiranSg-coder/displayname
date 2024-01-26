@@ -5,49 +5,47 @@ const NameForm = () => {
   const [lastName, setLastName] = useState("");
   const [fullName, setFullName] = useState("");
 
-  const submitForm = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (firstName && lastName) {
-      const fullName = `${firstName} ${lastName}`;
-      setFullName(`Full Name: ${fullName}`);
+      setFullName(`${firstName} ${lastName}`);
     } else {
-      alert("Please fill in both fields before submitting.");
+      alert("Please fill in both first and last name fields.");
     }
   };
 
   return (
     <div>
       <h1>Full Name Display</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name:</label>
         <input
           type="text"
           id="firstName"
-          name="firstName"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           required
         />
-
         <br />
-
         <label htmlFor="lastName">Last Name:</label>
         <input
           type="text"
           id="lastName"
-          name="lastName"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           required
         />
-
         <br />
-
-        <button type="button" onClick={submitForm}>
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </form>
 
-      <p>{fullName}</p>
+      {fullName && (
+        <div>
+          <p>
+            Full Name: <span>{fullName}</span>{" "}
+          </p>
+        </div>
+      )}
     </div>
   );
 };
